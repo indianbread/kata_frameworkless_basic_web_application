@@ -37,6 +37,16 @@ namespace kata_frameworkless_basic_web_application.tests
             dataStream.Close();
             response.Dispose();
         }
+        
+        //using httpclient
+        [Fact]
+        public void GreetUserUponGetRequest()
+        {
+            var client = new HttpClient();
+            var response = client.GetAsync($"http://localhost:{8080}/");
+            Assert.Equal(HttpStatusCode.OK, response.Result.StatusCode);
+            Assert.Contains(" - the time on the server is ", response.Result.Content.ReadAsStringAsync().Result);
+        }
     }
 }
 
